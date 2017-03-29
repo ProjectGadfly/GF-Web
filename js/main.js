@@ -108,11 +108,11 @@ var responseObject = JSON.parse(data);
 for (var i = 0; i< responseObject.events.length; i++){
   newContent += '<div class= "Representative' + i + '">';
   newContent += '<p> Representative Name:' + responseObject.event[i].name + '</p>';
-  newContent += '<img src="' + responseObject.event[i].picURL + '">';
-  newContent += '<p> Phone:' + responseObject.event[i].phone + '</p>';
-  newContent += '<p> Email:' + responseObject.event[i].email + '</p>';
-  newContent += '<p> Party:' + responseObject.event[i].party + '</p>';
-  newContent += '<p> Tags:' + responseObject.event[i].tags.toString() + '</p>';
+  newContent += '<img src="' + responseObject.Results[i].picURL + '">';
+  newContent += '<p> Phone:' + responseObject.Results[i].phone + '</p>';
+  newContent += '<p> Email:' + responseObject.Results[i].email + '</p>';
+  newContent += '<p> Party:' + responseObject.Results[i].party + '</p>';
+  newContent += '<p> Tags:' + responseObject.Results[i].tags.toString() + '</p>';
   newContent += '</div>';
 }
     });
@@ -121,11 +121,13 @@ for (var i = 0; i< responseObject.events.length; i++){
 
 $('#address-form').on('submit', function(e) {
   e.preventDefault();
+  submit = true;
+  replaceTemplate(submit);
     var link = 'http://gfserver/services/v1/representatives/'; // URL to load
     //var $content = $('#content'); // Cache selection
 
     $.ajax({
-        type: "POST", // GET or POST
+        type: "GET", // GET or POST
         url: link, // Path to file
         timeout : 2000,
         headers: { 'APIKey': 'b9ae3e78eb1c94ee7d7c4cb0cfa0bd889e900f2abefdf75f418c79f133aee28f468f18194b3ce1cd54f1850c332d7b6fd096ee50068cc5cb542efd0bd07cd6f3' } // Waiting time

@@ -57,12 +57,12 @@
             </div>
             <div class="inner cover">
                 <h1 class="cover-heading">Welcome to Project Gadfly</h1>
-                <form action="http://gfserver/services/v1/getfederal/" method="get">
+                <form action="http://gfserver/services/v1/representatives/" method="get" id="address-form">
                     <p class="lead"> Please input your address so we can find your representatives</p>
                     <div class="container">
                         <input type="text" class="form-control" name="address" placeholder="Ex: 1115 8th Avenue, Grinnell, Iowa" aria-describedby="basic-addon1">
                         <p class="lead">
-                            <input type ="submit" class="btn btn-lg btn-default" value="Submit">
+                            <input type="submit" class="btn btn-lg btn-default" value="Submit">
                         </p>
                     </div>
                 </form>
@@ -70,7 +70,6 @@
             <div class="mastfoot">
             </div>
         </div>
-    </div>
     </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -90,8 +89,8 @@
     <script>
     window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')
     </script>
-    <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="./js/vendor/bootstrap.min.js"></script>
+    <script src="./js/main.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
     (function(b, o, i, l, e, r) {
