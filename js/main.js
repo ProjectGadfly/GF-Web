@@ -93,7 +93,7 @@ var submit = false;
 
 function replaceTemplate(submit){
     if(submit === true){
-    $('div.front-page').remove();
+    //$('div.front-page').remove();
     $('div.hidden').removeClass('hidden');
   }
 }
@@ -123,9 +123,10 @@ $('#address-form').on('submit', function(e) {
   e.preventDefault();
   console.log("1");
   submit = true;
-  replaceTemplate(submit);
+
   console.log("2");
-    var link = 'http://gadfly.mobi/services/v1/representatives'; // URL to load
+    var link = 'http://gadfly.mobi/services/v1/representatives?address=' + $('#autocomplete').val(); // URL to load
+    console.log($('#autocomplete').val())
     //var $content = $('#content'); // Cache selection
 
     $.ajax({
@@ -145,7 +146,7 @@ $('#address-form').on('submit', function(e) {
           $('#content').html('<div id="container">Please try again soon.</div>');
         }
       });
-
+  replaceTemplate(submit);
 console.log("3");
   });
 
