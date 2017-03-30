@@ -93,7 +93,7 @@ var submit = false;
 
 function replaceTemplate(submit){
     if(submit === true){
-    //$('div.front-page').remove();
+    $('div.front-page').remove();
     $('div.hidden').removeClass('hidden');
   }
 }
