@@ -1,4 +1,3 @@
-
 var $content = $('entirecontent');
 
 
@@ -42,7 +41,7 @@ function retrieveResponse(data) {
 		var responseObject = JSON.parse(data);				
 		var urlid = responseObject.split(',')[1];
 		var ticket = responseObject.split(',')[0];
-		script_url= "http://www.gadfly.mobi/services/v1/id?ticket={"+urlid+"}";
+		script_url= "http://gadfly.mobi/services/v1/id?ticket={"+urlid+"}";
 	}                       //not really need to return another id int.!!!
 		$.ajax({
 			type:'GET',
@@ -76,7 +75,7 @@ function retrieveResponse(data) {
 		}); 
 		$("#delete_button").on('click',function(event) {
 			event.preventDefault();
-			delete_url= "http://www.gadfly.mobi/services/v1/script?ticket={" + ticket +"}"
+			delete_url= "http://gadfly.mobi/services/v1/script?ticket={" + ticket +"}"
 			$.ajax({
 				type:'DELETE',
 				url:delete_url,
