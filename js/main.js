@@ -253,16 +253,18 @@ for (var i = 0; i< responseObject.events.length; i++){
 
 $('#address-form').on('submit', function(e) {
   e.preventDefault();
+  console.log("1");
   submit = true;
   replaceTemplate(submit);
-    var link = 'http://www.gadfly.mobi/services/v1/representatives/'; // URL to load
+  console.log("2");
+    var link = 'http://gadfly.mobi/services/v1/representatives'; // URL to load
     //var $content = $('#content'); // Cache selection
 
     $.ajax({
         type: "GET", // GET or POST
         url: link, // Path to file
-        timeout : 2000,
-        headers: { 'APIKey': 'b9ae3e78eb1c94ee7d7c4cb0cfa0bd889e900f2abefdf75f418c79f133aee28f468f18194b3ce1cd54f1850c332d7b6fd096ee50068cc5cb542efd0bd07cd6f3' } // Waiting time
+        timeout:2000,
+        headers:{'APIKey':'v1key'}, // Waiting time
         beforeSend: function() { // Before Ajax 
             $('#content').append('<div id="load">Loading</div>'); // Load message
           },
@@ -277,5 +279,6 @@ $('#address-form').on('submit', function(e) {
         }
       });
 
+console.log("3");
   });
 
