@@ -2,63 +2,13 @@
 var $content = $('entirecontent');
 
 
-//new version!!!
-//
-//change page
-// not entirely sure whether this part is needed.
-function loadnewcontent(e) {
-	var url = successpage;   // a string of url of the successpage code.
-	$('#entirecontent').remove();
-	$('#allContent').html(e); //make sure e is newContent
-};
-
-//deal with tags or not???
-
-
-
-
-//contact with API
-
-function retrieveResponse(data) {
-	var newContent = '';
-	$(function(event) {
-		event.preventDefault();
-		var responseObject = JSON.parse(data);
-		var urlid= responseObject.split(',')[1];					
-	}
-		$.ajax({
-			type:'GET',
-			url:"http://gfserver/services/v1/script?id="+urlid,
-			beforeSend: function() {
-				$content.append('<div id="load">Loading</div>');
-			},
-			complete: function() {
-				$('#loading').remove();
-			},
-			success: function(data) {
-				newContent += top_part;
-				newContent += '<iframe src=\"' + url +'\" style="border:1px solid black;width:100%;display:block;height:400px"></iframe>';
-				newContent += middle + '<h3 id="scripturl"class="text-center head"> <b> Script URL:</b> <a href=\"' + url + '</h3>';
-				newContent += bottom;
-
-			},
-			fail: function() {
-				$content.html( '<div class="loading">Please try again soon.</div>');
-			}
-		}); 
-	});
-	return newContent;
-}
-
-
-
-// to send the contents 
+// to post the contents 
 
 $("#writescriptform").on('submit',function(event) {        
 	event.preventDefault();
 	var contentstr = $('#writescriptform').serialize();
 	var $content = $("#writescriptform");      
-	var api_post_url = 'http://gfserver/services/v1/script';
+	var api_post_url = 'http://gadfly.mobi/services/v1/script';
 
 	$.ajax({
 		type:"POST",
@@ -70,16 +20,82 @@ $("#writescriptform").on('submit',function(event) {
 			$('#load').remove();
 		},
 		success: function(data) {
-			
-			$content.html( retrieveResponse(data) );
-			//add the QR code.
+			$content.html(retrieveResponse(data) );
+			//whether it is correct to load the returned data like this???
 		},
 		fail: function() {
-			$content.html( '<div class="loading">Please try again soon.</div>');
+			$content.html( '<div class="loading">Post failed. Please try again soon.</div>');
 		}
 	});
 });
 
+                   //deal with tags or not???
+
+//contact with API
+
+function retrieveResponse(data) {
+	var newContent = '';
+	var script_url = '';
+	var ticket = '';
+	$(function(event) {
+		event.preventDefault();
+		var responseObject = JSON.parse(data);				
+		var urlid = responseObject.split(',')[1];
+		var ticket = responseObject.split(',')[0];
+		script_url= "http://www.gadfly.mobi/services/v1/id?ticket={"+urlid+"}";
+	}                       //not really need to return another id int.!!!
+		$.ajax({
+			type:'GET',
+			url:script_url,                                          
+			beforeSend: function() {
+				$content.append('<div id="load">Loading</div>');
+			},
+			complete: function() {
+				$('#load').remove();
+			},
+			success: function(data) {
+				newContent += top_part;
+				newContent += '<iframe src=' + url +'style="border:1px solid black;width:100%;display:block;height:400px"></iframe>';
+				newContent += '<h3 id="scripturl"class="text-center head"> <b> Script URL:</b> <a href=' + url + '</h3>';
+				newContent += '<button id="delete_button">Delete Script</button>' 
+				newContent += middle;
+				newContent += '<div id="qrcode"></div>';
+				newContent += bottom;
+			},
+			fail: function() {
+				$content.html( '<div class="loading">Please try again soon.</div>');
+			}
+		});
+		var qrcode = new QRCode("qrcode", {
+  			  text: script_url,
+    			  width: 128,
+ 			  height: 128,
+  			  colorDark : "#000000",
+  			  colorLight : "#ffffff",
+  			  correctLevel : QRCode.CorrectLevel.H
+		}); 
+		$("#delete_button").on('click',function(event) {
+			event.preventDefault();
+			delete_url= "http://www.gadfly.mobi/services/v1/script?ticket={" + ticket +"}"
+			$.ajax({
+				type:'DELETE',
+				url:delete_url,
+				beforeSend: function() {
+					$content.append('<div id="load">Loading</div>');
+				},
+				complete: function() {
+					$('#load').remove();
+				},
+				success: function(data) {
+					newContent = '<p> You have successfully deleted the script!</p>';
+				},
+				fail: function() {
+					$content.html( '<div class="loading">Delete failed. Please try again soon.</div>');
+				}
+			});
+	);
+	return newContent;
+};
 
 
 	
@@ -96,7 +112,7 @@ var top_part = '<div class=  \"alert alert-success\" role=\"alert\">\
     <div class="container">\
         <h3 class="text-center lead margin display-4> <b>Script Title</b></h3>\
 	';
-
+var delete_part = '<button onclick="deletefunction(data)">Delete me</button>'
 var middle = '<h3 class=\"head text-center"> <b> QR code:</b></h3>\
         <div align="center">\';
 var bottom = '</div>\  
