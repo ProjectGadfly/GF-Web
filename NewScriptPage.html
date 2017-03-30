@@ -80,13 +80,15 @@
 				      <a href="./about_us.html">About Us</a>
 			      </li>
 			      <li>
-				      <a href="#">Contact</a>
+				      <a href="#">Contact Us</a>
 			      </li>
 		      </ul>
 	      </div> <!--/.nav-collapse --> 
       </div>
     </nav>
     <!-- Main jumbotron for a primary marketing message or call to action -->
+    <section id="allContent">
+    <div id="entirecontent">
     <div class="jumbotron welcome">
         <div class="container">
             <h1>Create a call script</h1>
@@ -95,19 +97,35 @@
     </div>
 
     <div class="container">
-    <form>
+    <form id="writescriptform" action="http://www.gadfly.mobi/services/v1/script/" method="post">
         <div class="formgroup">
-            <label for="createscript" class="lead">Write your script in the textbox below:</label>
-            <textarea name="script-content" class="createscript" cols="30" rows="10"></textarea>
-        </div>
-    </form>
-    <br>
-    <form action="./SuccessPage.html">
-	    <button type="submit">Sumbit script!</button>
-    </form>
+		<label for="createscript" class="lead">Title:</label>
+		<input type="text" name="title" class="createscript"><br />
+		
+		<label for="createscript" class="lead" >Content:</label> 
+		<textarea name="content" class="createscript" cols="30" rows="10"></textarea>
+		
+		<label for="tags" class="lead" >tags:</label>
+		<select name="tags[0]" id="tags">
+			<option value=1>Federal</option>
+			<option value=2>State</option>
+		</select>
 
+		<select name="tags[1]" id="tags">
+			<option value=3>Senator</option>
+			<option value=4>Representative</option>
+		</select>
+				    
+        </div>
+	<button type="submit">Submit script!</button>
+    </form>
     </div>
-      <footer>
+    </div>
+    </section>
+     
+
+
+     <footer>
         <p>&copy; Project Gadfly 2017</p>
       </footer>
     </div> 
@@ -118,7 +136,7 @@
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
-
+	<script src="js/qrcode.js"> </script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
