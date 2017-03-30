@@ -123,7 +123,7 @@ $('#address-form').on('submit', function(e) {
   e.preventDefault();
   submit = true;
   replaceTemplate(submit);
-    var link = 'http://gfserver/services/v1/representatives/'; // URL to load
+    var link = 'http://www.gadfly.mobi/services/v1/representatives/'; // URL to load
     //var $content = $('#content'); // Cache selection
 
     $.ajax({
