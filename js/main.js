@@ -1,5 +1,5 @@
 
-var resultTemplateHead = '<meta charset="utf-8"> \
+/*var resultTemplateHead = '<meta charset="utf-8"> \
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> \
         <title></title>\
         <meta name="description" content="">\
@@ -39,8 +39,8 @@ var resultTemplateBody =  '<nav class="navbar navbar-inverse navbar-fixed-top" r
             <span class="icon-bar"></span>\
             </button>\
             <a class="navbar-brand" href="#">Project Gadfly </a>\
-        </div>\
-        <div id="navbar" class="navbar-collapse collapse">\
+        </div>' +
+        '<div id="navbar" class="navbar-collapse collapse">\
           <ul class="nav navbar-nav">\
             <li>\
               <a href="./index.html">Home</a>\
@@ -58,7 +58,6 @@ var resultTemplateBody =  '<nav class="navbar navbar-inverse navbar-fixed-top" r
         </div>\ <!--/.nav-collapse -->\ 
       </div>\
     </nav>\
-    <!-- jumbotron  -->\
     <div class="jumbotron">\
       <div class="container">\
         <h1>Welcome to Gadfly</h1>\
@@ -88,13 +87,14 @@ var resultTemplateBody =  '<nav class="navbar navbar-inverse navbar-fixed-top" r
       <footer>\
         <p>&copy; Project Gadfly 2017</p>\
       </footer>\
-    </div>'
+    </div>'*/
 
 var submit = false;
 
 function replaceTemplate(submit){
     if(submit === true){
-    $('div.site-wrapper').html(resultTemplateBody);
+    $('div.front-page').remove();
+    $('div.hidden').removeClass('hidden');
   }
 }
 
@@ -105,7 +105,7 @@ var newContent = '';
 e.preventDefault();
 var responseObject = JSON.parse(data);
 
-for (var i = 0; i< responseObject.events.length; i++){
+for (var i = 0; i< responseObject.Results.length; i++){
   newContent += '<div class= "Representative' + i + '">';
   newContent += '<p> Representative Name:' + responseObject.event[i].name + '</p>';
   newContent += '<img src="' + responseObject.Results[i].picURL + '">';
@@ -131,7 +131,6 @@ $('#address-form').on('submit', function(e) {
     $.ajax({
         type: "GET", // GET or POST
         url: link, // Path to file
-        timeout:2000,
         headers:{'APIKey':'v1key'}, // Waiting time
         beforeSend: function() { // Before Ajax 
             $('#content').append('<div id="load">Loading</div>'); // Load message
