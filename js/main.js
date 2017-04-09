@@ -1,31 +1,37 @@
 var $content = $('entirecontent');
 
 
-// to post the contents 
+testthis.onclick = function() {
 
-$("#writescriptform").on('submit',function(event) {        
-	event.preventDefault();
+// to post the contents 
+// there is a bug in this function that prevents the file from working!
+
+	//$("#writescriptform").on('submit',function(event) {        
+//	event.preventDefault();
+	document.write("it is running!");
 	var contentstr = $('#writescriptform').serialize();
 	var $content = $("#writescriptform");      
 	var api_post_url = 'http://gadfly.mobi/services/v1/script';
 	$.ajax({
 		type:"POST",
-		url:api_post_url,
+		url: api_post_url,
 		headers: { "APIKey": "v1key"},
-		beforeSend: function() {
-			$content.append('<div id="load">Loading</div>');
-		},
+//		beforeSend: function() {
+//			$content.append('<div id="load">Loading</div>');
+//		},
 		complete: function() {
 			$('#load').remove();
 		},
 		success: function(data) {
-			$content.html(retrieveResponse(data) );
+			$content.html('<p>dlfkjsldkfjsldkfj</p>' );
 		},
 		fail: function() {
 			$content.html( '<div class="loading">Post failed. Please try again soon.</div>');
 		}
 	});
 });
+};
+
 
 //contact with API
 
@@ -50,7 +56,7 @@ function retrieveResponse(data) {
 		},
 		success: function(data) {
 			$("#newScriptPage").remove();
-			$("div.hidden").removeClass();
+			$("div.hidden").removeClass("hidden");
 		},
 		fail: function() {
 			$content.html( '<div class="loading">Please try again soon.</div>');
