@@ -1,101 +1,3 @@
-var $content = $('entirecontent');
-
-
-// to post the contents 
-
-$("#writescriptform").on('submit',function(event) {        
-	event.preventDefault();
-	var contentstr = $('#writescriptform').serialize();
-	var $content = $("#writescriptform");      
-	var api_post_url = 'http://gadfly.mobi/services/v1/script';
-	$.ajax({
-		type:"POST",
-		url:api_post_url,
-		headers: { "APIKey": "v1key"},
-		beforeSend: function() {
-			$content.append('<div id="load">Loading</div>');
-		},
-		complete: function() {
-			$('#load').remove();
-		},
-		success: function(data) {
-			$content.html(retrieveResponse(data) );
-		},
-		fail: function() {
-			$content.html( '<div class="loading">Post failed. Please try again soon.</div>');
-		}
-	});
-});
-
-//contact with API
-
-function retrieveResponse(data) {
-	var newContent = '';
-	var script_url = '';
-	var ticket = '';
-	event.preventDefault();
-	var responseObject = JSON.parse(data);				
-	var urlid = responseObject.split(',')[2];
-	var ticket = responseObject.split(',')[1];
-	script_url= "http://gadfly.mobi/services/v1/script?id="+ urlid;                    
-	$.ajax({
-		type:'GET',
-		url:script_url,   
-		headers: { "APIKey": "v1key"},
-		beforeSend: function() {
-			$content.append('<div id="load">Loading</div>');
-		},
-		complete: function() {
-			$('#load').remove();
-		},
-		success: function(data) {
-			$("#newScriptPage").remove();
-			$("div.hidden").removeClass();
-		},
-		fail: function() {
-			$content.html( '<div class="loading">Please try again soon.</div>');
-		}
-	});
-	var qrcode = new QRCode("qrcode", {
-		  text: script_url,
-		  width: 128,
-		  height: 128,
-		  colorDark : "#000000",
-		  colorLight : "#ffffff",
-		  correctLevel : QRCode.CorrectLevel.H
-	}); 
-	$("#delete_button").on('click',function(event) {
-		event.preventDefault();
-		delete_url= "http://gadfly.mobi/services/v1/script?ticket=" + ticket ;
-		$.ajax({
-			type:'DELETE',
-			url:delete_url,
-			headers: { "APIKey": "v1key"},
-			beforeSend: function() {
-				$content.append('<div id="load">Loading</div>');
-			},
-			complete: function() {
-				$('#load').remove();
-			},
-			success: function(data) {
-				newContent = '<p> You have successfully deleted the script!</p>';
-			},
-			fail: function() {
-				$content.html( '<div class="loading">Delete failed. Please try again soon.</div>');
-			}
-		});
-	});
-	return newContent;
-};
-
-
-	
-
-
-
-
-
-
 /*var resultTemplateHead = '<meta charset="utf-8"> \
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> \
         <title></title>\
@@ -188,7 +90,73 @@ var resultTemplateBody =  '<nav class="navbar navbar-inverse navbar-fixed-top" r
 
 var submit = false;
 
-function replaceTemplate(submit){
+function replaceTemplate(submit) {
+    if (submit === true) {
+        $('div.front-page').remove();
+        $('div.hidden').removeClass('hidden');
+    }
+}
+
+function retrieveReps(data) {
+    var newContent = '';
+
+    $(function() {
+        e.preventDefault();
+        var responseObject = JSON.parse(data);
+
+        for (var i = 0; i < responseObject.Results.length; i++) {
+            newContent += '<div class= "Representative' + i + '">';
+            newContent += '<p> Representative Name:' + responseObject.event[i].name + '</p>';
+            newContent += '<img src="' + responseObject.Results[i].picURL + '">';
+            newContent += '<p> Phone:' + responseObject.Results[i].phone + '</p>';
+            newContent += '<p> Email:' + responseObject.Results[i].email + '</p>';
+            newContent += '<p> Party:' + responseObject.Results[i].party + '</p>';
+            newContent += '<p> Tags:' + responseObject.Results[i].tags.toString() + '</p>';
+            newContent += '</div>';
+        }
+    });
+    return newContent;
+}
+
+function editData(data){
+  $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+}
+$('#address-form').on('submit', function(e) {
+    e.preventDefault();
+    console.log("1");
+    submit = true;
+
+    console.log("2");
+    var address= $('#autocomplete').val();
+    address=address.replace(/\ /g,'+');
+    alert(address);
+    var link = 'http://gadfly.mobi/services/v1/representatives?address=' + address; // URL to load
+    console.log($('#autocomplete').val())
+        //var $content = $('#content'); // Cache selection
+
+
+    $.ajax({
+        type: "GET", // GET or POST
+        url: link, // Path to file
+        //headers:{'APIKey':'v1key'}, // Waiting time
+        beforeSend: function(request) { // Before Ajax 
+            request.setRequestHeader("APIKey", "v1key");
+            $('#content').append('<div id="load">Loading</div>'); // Load message
+        },
+        complete: function(data) { // Once finished
+            $('#load').remove(); // Clear message
+        },
+        success: function(data) { // Show content
+            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+        },
+        error: function() { // Show error msg 
+            $('#content').html('<div id="container">Please try again soon.</div>');
+        }
+    });
+    replaceTemplate(submit);
+    console.log("3");
+});
+){
     if(submit === true){
     $('div.front-page').remove();
     $('div.hidden').removeClass('hidden');
