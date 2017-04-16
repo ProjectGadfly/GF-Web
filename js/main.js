@@ -1,4 +1,3 @@
-
 /*var resultTemplateHead = '<meta charset="utf-8"> \
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> \
         <title></title>\
@@ -91,62 +90,69 @@ var resultTemplateBody =  '<nav class="navbar navbar-inverse navbar-fixed-top" r
 
 var submit = false;
 
-function replaceTemplate(submit){
-    if(submit === true){
-    $('div.front-page').remove();
-    $('div.hidden').removeClass('hidden');
-  }
+function replaceTemplate(submit) {
+    if (submit === true) {
+        $('div.front-page').remove();
+        $('div.hidden').removeClass('hidden');
+    }
 }
 
-function retrieveReps(data){
-var newContent = '';
+function retrieveReps(data) {
+    var newContent = '';
 
-  $(function(){
-e.preventDefault();
-var responseObject = JSON.parse(data);
+    $(function() {
+        e.preventDefault();
+        var responseObject = JSON.parse(data);
 
-for (var i = 0; i< responseObject.Results.length; i++){
-  newContent += '<div class= "Representative' + i + '">';
-  newContent += '<p> Representative Name:' + responseObject.event[i].name + '</p>';
-  newContent += '<img src="' + responseObject.Results[i].picURL + '">';
-  newContent += '<p> Phone:' + responseObject.Results[i].phone + '</p>';
-  newContent += '<p> Email:' + responseObject.Results[i].email + '</p>';
-  newContent += '<p> Party:' + responseObject.Results[i].party + '</p>';
-  newContent += '<p> Tags:' + responseObject.Results[i].tags.toString() + '</p>';
-  newContent += '</div>';
-}
+        for (var i = 0; i < responseObject.Results.length; i++) {
+            newContent += '<div class= "Representative' + i + '">';
+            newContent += '<p> Representative Name:' + responseObject.event[i].name + '</p>';
+            newContent += '<img src="' + responseObject.Results[i].picURL + '">';
+            newContent += '<p> Phone:' + responseObject.Results[i].phone + '</p>';
+            newContent += '<p> Email:' + responseObject.Results[i].email + '</p>';
+            newContent += '<p> Party:' + responseObject.Results[i].party + '</p>';
+            newContent += '<p> Tags:' + responseObject.Results[i].tags.toString() + '</p>';
+            newContent += '</div>';
+        }
     });
-  return newContent;
+    return newContent;
 }
 
+function editData(data){
+  $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+}
 $('#address-form').on('submit', function(e) {
-  e.preventDefault();
-  console.log("1");
-  submit = true;
+    e.preventDefault();
+    console.log("1");
+    submit = true;
 
-  console.log("2");
-    var link = 'http://gadfly.mobi/services/v1/representatives?address=' + $('#autocomplete').val(); // URL to load
+    console.log("2");
+    var address= $('#autocomplete').val();
+    address=address.replace(/\ /g,'+');
+    alert(address);
+    var link = 'http://gadfly.mobi/services/v1/representatives?address=' + address; // URL to load
     console.log($('#autocomplete').val())
-    //var $content = $('#content'); // Cache selection
+        //var $content = $('#content'); // Cache selection
+
 
     $.ajax({
         type: "GET", // GET or POST
         url: link, // Path to file
-        headers:{'APIKey':'v1key'}, // Waiting time
-        beforeSend: function() { // Before Ajax 
+        //headers:{'APIKey':'v1key'}, // Waiting time
+        beforeSend: function(request) { // Before Ajax 
+            request.setRequestHeader("APIKey", "v1key");
             $('#content').append('<div id="load">Loading</div>'); // Load message
-          },
-        complete: function() { // Once finished
+        },
+        complete: function(data) { // Once finished
             $('#load').remove(); // Clear message
-          },
+        },
         success: function(data) { // Show content
-          $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
         },
         error: function() { // Show error msg 
-          $('#content').html('<div id="container">Please try again soon.</div>');
+            $('#content').html('<div id="container">Please try again soon.</div>');
         }
-      });
-  replaceTemplate(submit);
-console.log("3");
-  });
-
+    });
+    replaceTemplate(submit);
+    console.log("3");
+});
