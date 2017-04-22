@@ -156,3 +156,9 @@ $('#address-form').on('submit', function(e) {
     replaceTemplate(submit);
     console.log("3");
 });
+){
+    if(submit === true){
+    $('div.front-page').remove();
+    $('div.hidden').removeClass('hidden');
+  }
+}
