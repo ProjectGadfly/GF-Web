@@ -97,16 +97,19 @@ function replaceTemplate(submit) {
     }
 }
 
+var testJSON = '{ "Results": [{ "party": "Republican", "phone": "202-224-3254", "tags": [3, 1], "picURL": "https://pbs.twimg.com/profile_images/817365634434695168/dHmvZNA2_400x400.jpg", "email": "", "name": "Joni Ernst" }, { "party": "Republican", "phone": "202-224-3744", "tags": [3, 1], "picURL": "https://pbs.twimg.com/profile_images/37902202/Official_Portrait__cropped__September_2007_400x400.jpg", "email": "", "name": "Charles Grassley" }, { "party": "Republican", "phone": "202-225-2911", "tags": [4, 1], "picURL": "https://pbs.twimg.com/profile_images/563377937609547776/QgjEd3ns_400x400.jpeg", "email": "", "name": "Rod Blum" }, { "party": "Republican", "phone": "515-281-3221", "tags": [4, 2], "picURL": "https://www.legis.iowa.gov/photo?action=getPhoto&ga=87&pid=10757", "email": "dave.maxwell@legis.iowa.gov", "name": "Dave Maxwell" }, { "party": "Republican", "phone": null, "tags": [3, 2], "picURL": "https://www.legis.iowa.gov/photo?action=getPhoto&ga=87&pid=6567", "email": "tim.kapucian@legis.iowa.gov", "name": "Tim L. Kapucian" }], "Status": "OK" }';
+
 function retrieveReps(data) {
+    console.log("In retrieveReps")
     var newContent = '';
 
-    $(function() {
-        e.preventDefault();
+    //$(function() {
+        //e.preventDefault();
         var responseObject = JSON.parse(data);
 
         for (var i = 0; i < responseObject.Results.length; i++) {
             newContent += '<div class= "Representative' + i + '">';
-            newContent += '<p> Representative Name:' + responseObject.event[i].name + '</p>';
+            newContent += '<p> Representative Name:' + responseObject.Results[i].name + '</p>';
             newContent += '<img src="' + responseObject.Results[i].picURL + '">';
             newContent += '<p> Phone:' + responseObject.Results[i].phone + '</p>';
             newContent += '<p> Email:' + responseObject.Results[i].email + '</p>';
@@ -114,12 +117,14 @@ function retrieveReps(data) {
             newContent += '<p> Tags:' + responseObject.Results[i].tags.toString() + '</p>';
             newContent += '</div>';
         }
-    });
+    //}
+    //);
+    console.log(newContent);
     return newContent;
 }
 
-function editData(data){
-  $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+function editData(data) {
+    $('#content').html(retrieveReps(data)).hide().fadeIn(400);
 }
 $('#address-form').on('submit', function(e) {
     e.preventDefault();
@@ -127,8 +132,8 @@ $('#address-form').on('submit', function(e) {
     submit = true;
 
     console.log("2");
-    var address= $('#autocomplete').val();
-    address=address.replace(/\ /g,'+');
+    var address = $('#autocomplete').val();
+    address = address.replace(/\ /g, '+');
     alert(address);
     var link = 'http://gadfly.mobi/services/v1/representatives?address=' + address; // URL to load
     console.log($('#autocomplete').val())
@@ -142,6 +147,7 @@ $('#address-form').on('submit', function(e) {
         beforeSend: function(request) { // Before Ajax 
             request.setRequestHeader("APIKey", "v1key");
             $('#content').append('<div id="load">Loading</div>'); // Load message
+             
         },
         complete: function(data) { // Once finished
             $('#load').remove(); // Clear message
@@ -150,15 +156,18 @@ $('#address-form').on('submit', function(e) {
             $('#content').html(retrieveReps(data)).hide().fadeIn(400);
         },
         error: function() { // Show error msg 
-            $('#content').html('<div id="container">Please try again soon.</div>');
+         
+          replaceTemplate(submit); //testing JSON parse
+           $('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
+            $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
+    
     replaceTemplate(submit);
     console.log("3");
-});
-{
-    if(submit === true){
-    $('div.front-page').remove();
-    $('div.hidden').removeClass('hidden');
-  }
+}); {
+    if (submit === true) {
+        $('div.front-page').remove();
+        $('div.hidden').removeClass('hidden');
+    }
 }
