@@ -127,7 +127,7 @@ function editData(data) {
     $('#content').html(retrieveReps(data)).hide().fadeIn(400);
 }
 $('#address-form').on('submit', function(e) {
-    e.preventDefault();
+    //e.preventDefault();
     console.log("1");
     submit = true;
 
