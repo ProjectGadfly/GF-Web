@@ -153,12 +153,13 @@ $('#address-form').on('submit', function(e) {
             $('#load').remove(); // Clear message
         },
         success: function(data) { // Show content
-            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+            var JSON = '' + data; 
+            $('#content').html(retrieveReps(JSON)).hide().fadeIn(4000);
         },
         error: function() { // Show error msg 
          
-          replaceTemplate(submit); //testing JSON parse
-           $('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
+          //replaceTemplate(submit); //testing JSON parse
+           //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
