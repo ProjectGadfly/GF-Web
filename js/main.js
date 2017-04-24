@@ -107,7 +107,7 @@ function retrieveReps(data) {
         //e.preventDefault();
         //var responseObject = JSON.parse(data);
 
-        for (var i = 0; i < responseObject.Results.length; i++) {
+        for (var i = 0; i < data.Results.length; i++) {
             newContent += '<div class= "Representative' + i + '">';
             newContent += '<p> Representative Name:' + data.Results[i].name + '</p>';
             newContent += '<img src="' + data.Results[i].picURL + '">';
