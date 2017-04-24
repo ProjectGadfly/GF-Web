@@ -127,7 +127,7 @@ function editData(data) {
     $('#content').html(retrieveReps(data)).hide().fadeIn(400);
 }
 $('#address-form').on('submit', function(e) {
-    e.preventDefault();
+    //e.preventDefault();
     console.log("1");
     submit = true;
 
@@ -153,7 +153,9 @@ $('#address-form').on('submit', function(e) {
             $('#load').remove(); // Clear message
         },
         success: function(data) { // Show content
-            var JSON = '' + data; 
+            console.log(data);
+            console.log(String(data));
+            var JSON = '' + String(data); 
             $('#content').html(retrieveReps(JSON)).hide().fadeIn(4000);
         },
         error: function() { // Show error msg 
