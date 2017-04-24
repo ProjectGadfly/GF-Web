@@ -155,7 +155,7 @@ $('#address-form').on('submit', function(e) {
         success: function(data) { // Show content
             console.log(data);
             console.log(String(data));
-            var JSON = '' + String(data); 
+            var JSON = '' + JSON.stringify(data); 
             $('#content').html(retrieveReps(JSON)).hide().fadeIn(4000);
         },
         error: function() { // Show error msg 
