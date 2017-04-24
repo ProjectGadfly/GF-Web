@@ -105,16 +105,16 @@ function retrieveReps(data) {
 
     //$(function() {
         //e.preventDefault();
-        var responseObject = JSON.parse(data);
+        //var responseObject = JSON.parse(data);
 
         for (var i = 0; i < responseObject.Results.length; i++) {
             newContent += '<div class= "Representative' + i + '">';
-            newContent += '<p> Representative Name:' + responseObject.Results[i].name + '</p>';
-            newContent += '<img src="' + responseObject.Results[i].picURL + '">';
-            newContent += '<p> Phone:' + responseObject.Results[i].phone + '</p>';
-            newContent += '<p> Email:' + responseObject.Results[i].email + '</p>';
-            newContent += '<p> Party:' + responseObject.Results[i].party + '</p>';
-            newContent += '<p> Tags:' + responseObject.Results[i].tags.toString() + '</p>';
+            newContent += '<p> Representative Name:' + data.Results[i].name + '</p>';
+            newContent += '<img src="' + data.Results[i].picURL + '">';
+            newContent += '<p> Phone:' + data.Results[i].phone + '</p>';
+            newContent += '<p> Email:' + data.Results[i].email + '</p>';
+            newContent += '<p> Party:' + data.Results[i].party + '</p>';
+            newContent += '<p> Tags:' + data.Results[i].tags.toString() + '</p>';
             newContent += '</div>';
         }
     //}
@@ -154,9 +154,8 @@ $('#address-form').on('submit', function(e) {
         },
         success: function(data) { // Show content
             console.log(data);
-            console.log(String(data));
-            var JSON = '' + data.toString(); 
-            $('#content').html(retrieveReps(JSON)).hide().fadeIn(4000);
+            console.log(String(data)); 
+            $('#content').html(retrieveReps(data)).hide().fadeIn(4000);
         },
         error: function() { // Show error msg 
          
