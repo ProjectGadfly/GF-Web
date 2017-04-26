@@ -135,7 +135,7 @@ $('#address-form').on('submit', function(e) {
     var address = $('#autocomplete').val();
     address = address.replace(/\ /g, '+');
     alert(address);
-    var link = 'http://gadfly.mobi/services/v1/representatives?address=' + address; // URL to load
+    var link = '/services/v1/representatives?address=' + address; // URL to load
     console.log($('#autocomplete').val())
         //var $content = $('#content'); // Cache selection
 
