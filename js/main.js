@@ -30,7 +30,7 @@ function retrieveReps(data) {
             newContent += '<p class= "lead"> <b>Phone:</b> ' + data.Results[i].phone + '</p>';
             newContent += '<p class= "lead"> <b>Email:</b> ' + data.Results[i].email + '</p>';
             newContent += '<p class= "lead"> <b>Party:</b> ' + data.Results[i].party + '</p>';
-            //newContent += '<p class= "lead"> <b>Tags:</b> ' + data.Results[i].tags.toString() + '</p>';
+            newContent += '<p class= "lead"> <b>Tags:</b> ' + data.Results[i].tags.toString() + '</p>';
             newContent += '</div>';
             newContent += '<hr class="featurette-divider">';
         }
