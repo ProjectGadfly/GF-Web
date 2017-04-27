@@ -13,7 +13,7 @@ var testJSON = { "Results": [{ "party": "Republican", "phone": "202-224-3254", "
 function retrieveReps(data) {
     console.log("In retrieveReps")
     var newContent = '';
-    var tags = {"null",}
+
     //$(function() {
         //e.preventDefault();
         //var responseObject = JSON.parse(data);
@@ -76,7 +76,7 @@ $('#address-form').on('submit', function(e) {
         error: function() { // Show error msg 
          
           //replaceTemplate(submit); //testing JSON parse
-          //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
+           $('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
