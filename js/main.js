@@ -21,9 +21,9 @@ function retrieveReps(data) {
         for (var i = 0; i < data.Results.length; i++) {
             newContent += '<div class= "Representative' + i + ' featurette">';
             if(i%2 === 0){
-            newContent += '<img class="featurette-image pull-left img-circle" src="' + data.Results[i].picURL + '" + style="width: 300px; height: 300px">';
+            newContent += '<img class="featurette-image pull-left img-circle" src="' + data.Results[i].picURL + '" + style="width: 200px; height: 200px">';
           }else{
-            newContent += '<img class="featurette-image pull-right img-circle" src="' + data.Results[i].picURL + '" + style="width: 300px; height: 300px">';
+            newContent += '<img class="featurette-image pull-right img-circle" src="' + data.Results[i].picURL + '" + style="width: 200px; height: 200px">';
           }
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
             newContent += '<h2 class="featurette-heading"> <b>' + data.Results[i].name + '</b> </h2>';
