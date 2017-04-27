@@ -21,9 +21,9 @@ function retrieveReps(data) {
         for (var i = 0; i < data.Results.length; i++) {
             newContent += '<div class= "Representative' + i + ' featurette">';
             if(i%2 === 0){
-            newContent += '<img class="featurette-image pull-left img-circle" src="' + data.Results[i].picURL + '" + style="width: 200px; height: 200px">';
+            newContent += '<img class="featurette-image pull-left img-circle" src="' + data.Results[i].picURL + '" + style="width: 400px; height: 400px">';
           }else{
-            newContent += '<img class="featurette-image pull-right img-circle" src="' + data.Results[i].picURL + '" + style="width: 200px; height: 200px">';
+            newContent += '<img class="featurette-image pull-right img-circle" src="' + data.Results[i].picURL + '" + style="width: 400px; height: 400px">';
           }
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
             newContent += '<h2 class="featurette-heading"> <b>' + data.Results[i].name + '</b> </h2>';
@@ -76,7 +76,7 @@ $('#address-form').on('submit', function(e) {
         error: function() { // Show error msg 
          
           //replaceTemplate(submit); //testing JSON parse
-           //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
+           $('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
