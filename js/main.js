@@ -76,7 +76,7 @@ $('#address-form').on('submit', function(e) {
         error: function() { // Show error msg 
          
           //replaceTemplate(submit); //testing JSON parse
-           $('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
+          //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
