@@ -52,6 +52,7 @@ $('#address-form').on('submit', function(e) {
     var address = $('#autocomplete').val();
     address = address.replace(/\ /g, '+');
     var link = 'http://gadfly.mobi/services/v1/representatives?address=' + address; // URL to load
+    var alltagsLink = 'http://gadfly.mobi/services/v1/alltags'
     console.log($('#autocomplete').val())
         //var $content = $('#content'); // Cache selection
 
@@ -77,6 +78,29 @@ $('#address-form').on('submit', function(e) {
          
           //replaceTemplate(submit); //testing JSON parse
            //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
+            $('#content').append('<div id="container">Please try again soon.</div>');
+        }
+    }
+
+    // Call API get all tags to parse tags returned in representative data
+    {
+        type: "GET", // GET or POST
+        url: alltagsLink, // Path to file
+        //headers:{'APIKey':'v1key'}, // Waiting time
+        beforeSend: function(request) { // Before Ajax 
+            request.setRequestHeader("APIKey", "v1key");
+            $('#content').append('<div id="load">Loading</div>'); // Load message
+             
+        },
+        complete: function(data) { // Once finished
+            $('#load').remove(); // Clear message
+        },
+        success: function(data) { // Show content
+            console.log(data);
+            console.log(String(data)); 
+            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+        },
+        error: function() { // Show error msg 
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
