@@ -33,14 +33,19 @@ function retrieveReps(data) {
             var parsedTags = "";
             for (tag of tags)
             {
-                if (tag == 1)
-                    parsedTags += "Federal"
-                else if (tag == 2)
-                    parsedTags += "State"
-                else if (tag == 3)
-                    parsedTags += "Senator"
-                else
-                    parsedTags += "Representative"
+                console.log (tagData[tag]);
+                if (tag == 1) {
+                    parsedTags = "Federal " + parsedTags;
+                }
+                else if (tag == 2){
+                    parsedTags += "State " + parsedTags;
+                }
+                else if (tag == 3){
+                    parsedTags += "Senator";
+                }
+                else{
+                    parsedTags += "Representative";
+                }
             }
 
 
