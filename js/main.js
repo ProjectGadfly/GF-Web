@@ -33,7 +33,8 @@ function retrieveReps(data) {
             var parsedTags = "";
             for (tag of tags)
             {
-                console.log ("Key: " + tag + "Value: "+ tagDict[tag]);
+                console.log(tagDict);
+                console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
                 if (tag == 1) {
                     parsedTags = "Federal " + parsedTags;
                 }
@@ -115,12 +116,13 @@ $('#address-form').on('submit', function(e) {
                 console.log(tagData);
                 console.log(String(tagData)); 
                 tagDict = tagData;
+                $('#content').html(retrieveReps(data)).hide().fadeIn(400);
             },
             error: function() { // Show error msg 
                 $('#content').append('<div id="container">Please try again soon.</div>');
             }});
 
-            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+            
         },
         error: function() { // Show error msg 
          
