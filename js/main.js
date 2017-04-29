@@ -34,13 +34,13 @@ function retrieveReps(data) {
             for (tag of tags)
             {
                 if (tag == 1)
-                    parsedTags += "Federal"
+                    parsedTags = "Federal " + parsedTags;
                 else if (tag == 2)
-                    parsedTags += "State"
+                    parsedTags += "State " + parsedTags;
                 else if (tag == 3)
-                    parsedTags += "Senator"
+                    parsedTags += "Senator";
                 else
-                    parsedTags += "Representative"
+                    parsedTags += "Representative";
             }
 
 
