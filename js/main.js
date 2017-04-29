@@ -95,7 +95,6 @@ $('#address-form').on('submit', function(e) {
 
             // Call API get all tags to parse tags returned in representative data
             $.ajax({
-            //console.log("Getting all tags");
             type: "GET", // GET or POST
             url: alltagsLink, // API path
             beforeSend: function(request) { // Before Ajax 
@@ -109,7 +108,7 @@ $('#address-form').on('submit', function(e) {
             success: function(tagData) { // Show content
                 console.log(tagData);
                 console.log(String(tagData)); 
-                tagDict = JSON.parse(tagData);
+                tagDict = tagData;
             },
             error: function() { // Show error msg 
                 $('#content').append('<div id="container">Please try again soon.</div>');
