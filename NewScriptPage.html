@@ -98,7 +98,7 @@
 		</div> <!--//jumbotron welcome-->
 
    	 <div class="container">
-    	<form id="writescriptform" method="post">
+    	<form id="writescriptform" action="http://gadfly.mobi/services/v1/script" method="post">
     	    <div class="formgroup">
 			<label for="createscript" class="lead">Title:</label>
 			<input type="text" name="title" class="createscript"><br />
@@ -117,8 +117,10 @@
 			</select>
 				    
       	  </div>  <!--formgroup-->
-		<button type="submit" action="http://gadfly.mobi/services/v1/script">Submit script!</button>
-    	</form>
+	 <p class="lead">
+           <input type="submit" class="btn btn-lg btn-default" value="Submit">
+	   </p>
+	</form>
 	 </div> <!--container-->
 	 </div> <!--entirecontent-->
     	</section>
@@ -140,13 +142,13 @@
     		    </div>
   		 </div>
   		 <div class="container">
-       			 <h3 class="text-center lead margin display-4"> <strong>Script Title</strong></h3>
-       			 <iframe style="border:1px solid black;width:100%;display:block;height:400px"></iframe>   //script goes here!
-			 <h3 class="text-center head"> <strong> Script URL:</strong> <a href="http://google.com">View Script</a></h3> //common audience link goes here!
-       			 <h3 class="head text-center"> <b> QR code:</b></h3>
-			 <button id="delete_button">Delete Script</button>
-       			 <div align="center">
-				 <div id="qrcode"></div>
+       		//	 <h3 class="text-center lead margin display-4"> <strong>Script Title</strong></h3>
+       			// <iframe style="border:1px solid black;width:100%;display:block;height:400px"></iframe>   script goes here!
+			// <h3 class="text-center head"> <strong> Script URL:</strong> <a href="http://google.com">View Script</a></h3> //common audience link goes here!
+       			// <h3 class="head text-center"> <b> QR code:</b></h3>
+			// <button id="delete_button">Delete Script</button>
+       			// <div align="center">
+			//	 <div id="qrcode"></div>
 			 </div>
       			  <div style="width:50vw;margin:0 auto" align="center">
          		   <p class="text-center lead margin"> Share this script on social media!</p>
@@ -166,7 +168,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="js/vendor/bootstrap.min.js"></script>
 	<script src="js/vendor/jquery-1.11.2.min.js">
-        <script src="js/main.js"></script>
+        <script src="js/newScript.js"></script>
 	<script src="js/qrcode.js"> </script>
    </body>
 
