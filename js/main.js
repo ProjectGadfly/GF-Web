@@ -33,8 +33,8 @@ function retrieveReps(data) {
             var parsedTags = "";
             for (tag of tags)
             {
-                parsedTags = tagDict[tag].capitalize() + " " + parsedTags;
-
+                parsedTags = tagDict[tag] + " " + parsedTags;
+                parsedTags.capitalize(); 
                 /*
                 console.log(tagDict);
                 console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
