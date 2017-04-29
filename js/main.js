@@ -28,11 +28,14 @@ function retrieveReps(data) {
           }
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
 
-            // Hacky fix to unwrap tags
+            // Unwrap tags
             var tags = data.Results[i].tags;
             var parsedTags = "";
             for (tag of tags)
             {
+                parsedTags = tagDict[tag] + " " + parsedTags;
+
+                /*
                 console.log(tagDict);
                 console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
                 if (tag == 1) {
@@ -46,7 +49,7 @@ function retrieveReps(data) {
                 }
                 else{
                     parsedTags += "Representative";
-                }
+                }*/
             }
 
 
