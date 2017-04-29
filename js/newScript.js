@@ -28,14 +28,15 @@ function editData(data) {
 }
 
 $('#writescriptform').on('submit',function(e) {
-	console.log("1");
+//	console.log("1");
 	submit = true;
-	console.log("2");
+//	console.log("2");
 	var link = 'http://gadfly.mobi/services/v1/script;
 
 	$ajax({
 		type:"POST",
 		url: link,
+		headers: {"APIKey":"v1key"},
 		beforeSend: function(request) {
 			request.setRequestHeader("APIKey","v1key");
 			$('#content').append('<div id = "load">Loading</div>');
@@ -53,7 +54,7 @@ $('#writescriptform').on('submit',function(e) {
 		}
 	});
 	replaceTemplate(submit);
-	console.log("3"0;
+	console.log("3");
 });{
 	if (submit ==true) {
 		$('div.front-page').remove();
