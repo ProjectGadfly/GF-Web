@@ -28,28 +28,13 @@ function retrieveReps(data) {
           }
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
 
-            // Unwrap tags
+            // Unwrap tags using dictionary from API call to GET alltags
             var tags = data.Results[i].tags;
             var parsedTags = "";
             for (tag of tags)
             {
                 parsedTags = tagDict[tag] + " " + parsedTags;
                 parsedTags = parsedTags.charAt(0).toUpperCase() + parsedTags.slice(1);
-                /*
-                console.log(tagDict);
-                console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
-                if (tag == s1) {
-                    parsedTags = "Federal " + parsedTags;
-                }
-                else if (tag == 2){
-                    parsedTags += "State " + parsedTags;
-                }
-                else if (tag == 3){
-                    parsedTags += "Senator";
-                }
-                else{
-                    parsedTags += "Representative";
-                }*/
             }
 
 
