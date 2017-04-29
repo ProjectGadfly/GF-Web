@@ -1,5 +1,6 @@
 
 var submit = false;
+var tagDict = {};
 
 function replaceTemplate(submit) {
     if (submit === true) {
@@ -26,11 +27,34 @@ function retrieveReps(data) {
             newContent += '<img class="featurette-image pull-right img-circle" src="' + data.Results[i].picURL + '" + style="width: 400px; height: 400px">';
           }
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
+
+            // Hacky fix to unwrap tags
+            var tags = data.Results[i].tags;
+            var parsedTags = "";
+            for (tag of tags)
+            {
+                console.log ("Key: " + tag + "Value: "+ tagDict[tag]);
+                if (tag == 1) {
+                    parsedTags = "Federal " + parsedTags;
+                }
+                else if (tag == 2){
+                    parsedTags += "State " + parsedTags;
+                }
+                else if (tag == 3){
+                    parsedTags += "Senator";
+                }
+                else{
+                    parsedTags += "Representative";
+                }
+            }
+
+
             newContent += '<h2 class="featurette-heading"> <b>' + data.Results[i].name + '</b> </h2>';
             newContent += '<p class= "lead"> <b>Phone:</b> ' + data.Results[i].phone + '</p>';
             newContent += '<p class= "lead"> <b>Email:</b> ' + data.Results[i].email + '</p>';
             newContent += '<p class= "lead"> <b>Party:</b> ' + data.Results[i].party + '</p>';
-            newContent += '<p class= "lead"> <b>Tags:</b> ' + data.Results[i].tags.toString() + '</p>';
+            //newContent += '<p class= "lead"> <b>Tags:</b> ' + data.Results[i].tags.toString() + '</p>';
+            newContent += '<p class= "lead"> <b>Tags:</b> ' + parsedTags + '</p>';
             newContent += '</div>';
             newContent += '<hr class="featurette-divider">';
         }
@@ -72,35 +96,36 @@ $('#address-form').on('submit', function(e) {
         success: function(data) { // Show content
             console.log(data);
             console.log(String(data)); 
+
+
+
+            // Call API get all tags to parse tags returned in representative data
+            $.ajax({
+            type: "GET", // GET or POST
+            url: alltagsLink, // API path
+            beforeSend: function(request) { // Before Ajax 
+                request.setRequestHeader("APIKey", "v1key");
+                $('#content').append('<div id="load">Loading</div>'); // Load message
+                 
+            },
+            complete: function(tagData) { // Once finished
+                $('#load').remove(); // Clear message
+            },
+            success: function(tagData) { // Show content
+                console.log(tagData);
+                console.log(String(tagData)); 
+                tagDict = tagData;
+            },
+            error: function() { // Show error msg 
+                $('#content').append('<div id="container">Please try again soon.</div>');
+            }});
+
             $('#content').html(retrieveReps(data)).hide().fadeIn(400);
         },
         error: function() { // Show error msg 
          
           //replaceTemplate(submit); //testing JSON parse
            //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
-            $('#content').append('<div id="container">Please try again soon.</div>');
-        }
-    }
-
-    // Call API get all tags to parse tags returned in representative data
-    {
-        type: "GET", // GET or POST
-        url: alltagsLink, // Path to file
-        //headers:{'APIKey':'v1key'}, // Waiting time
-        beforeSend: function(request) { // Before Ajax 
-            request.setRequestHeader("APIKey", "v1key");
-            $('#content').append('<div id="load">Loading</div>'); // Load message
-             
-        },
-        complete: function(data) { // Once finished
-            $('#load').remove(); // Clear message
-        },
-        success: function(data) { // Show content
-            console.log(data);
-            console.log(String(data)); 
-            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
-        },
-        error: function() { // Show error msg 
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
     });
