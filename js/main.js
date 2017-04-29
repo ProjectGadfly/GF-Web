@@ -34,7 +34,7 @@ function retrieveReps(data) {
             for (tag of tags)
             {
                 parsedTags = tagDict[tag] + " " + parsedTags;
-                parsedTags[0] = parsedTags[0].toUpperCase(); 
+                parsedTags = parsedTags.charAt(0).toUpperCase() + parsedTags.slice(1);
                 /*
                 console.log(tagDict);
                 console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
