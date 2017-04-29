@@ -47,7 +47,7 @@ $('#writescriptform').on('submit',function(e) {
 		success: function(data) {
 			console.log(data);
 			console.log(String(data));
-			$('#content').html(retrieveReps(data).hide().fadeIn(400);
+			$('#content').html(retrieveReps(data).hide().fadeIn(400));
 		}
 		error: function() {
 			$('#content').append('<div id="container">Please try again.</div>');
