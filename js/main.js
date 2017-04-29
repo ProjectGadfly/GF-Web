@@ -29,7 +29,8 @@ function retrieveReps(data) {
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
 
             // Hacky fix to unwrap tags
-            var parsedTags = ""
+            var tags = data.Results[i].tags;
+            var parsedTags = "";
             for (tag of tags)
             {
                 if (tag == 1)
