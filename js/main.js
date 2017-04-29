@@ -38,7 +38,7 @@ function retrieveReps(data) {
                 /*
                 console.log(tagDict);
                 console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
-                if (tag == 1) {
+                if (tag == s1) {
                     parsedTags = "Federal " + parsedTags;
                 }
                 else if (tag == 2){
