@@ -95,7 +95,7 @@ $('#address-form').on('submit', function(e) {
 
             // Call API get all tags to parse tags returned in representative data
             $.ajax({
-            console.log("Getting all tags");
+            //console.log("Getting all tags");
             type: "GET", // GET or POST
             url: alltagsLink, // API path
             beforeSend: function(request) { // Before Ajax 
