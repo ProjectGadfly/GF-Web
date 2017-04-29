@@ -35,21 +35,6 @@ function retrieveReps(data) {
             {
                 parsedTags = tagDict[tag] + " " + parsedTags;
                 parsedTags = parsedTags.charAt(0).toUpperCase() + parsedTags.slice(1);
-                /*
-                console.log(tagDict);
-                console.log ("Key: " + tag + " Value: "+ tagDict[tag]);
-                if (tag == s1) {
-                    parsedTags = "Federal " + parsedTags;
-                }
-                else if (tag == 2){
-                    parsedTags += "State " + parsedTags;
-                }
-                else if (tag == 3){
-                    parsedTags += "Senator";
-                }
-                else{
-                    parsedTags += "Representative";
-                }*/
             }
 
 
