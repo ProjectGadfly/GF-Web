@@ -116,12 +116,13 @@ $('#address-form').on('submit', function(e) {
                 console.log(tagData);
                 console.log(String(tagData)); 
                 tagDict = tagData;
+                $('#content').html(retrieveReps(data)).hide().fadeIn(400);
             },
             error: function() { // Show error msg 
                 $('#content').append('<div id="container">Please try again soon.</div>');
             }});
 
-            $('#content').html(retrieveReps(data)).hide().fadeIn(400);
+            
         },
         error: function() { // Show error msg 
          
