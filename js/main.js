@@ -33,7 +33,7 @@ function retrieveReps(data) {
             var parsedTags = "";
             for (tag of tags)
             {
-                console.log ("Key: " + tag + "Value: "+ tagDict[tag].toString);
+                console.log ("Key: " + tag + "Value: "+ tagDict[tag]);
                 if (tag == 1) {
                     parsedTags = "Federal " + parsedTags;
                 }
