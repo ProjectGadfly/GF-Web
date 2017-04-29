@@ -28,7 +28,7 @@ function retrieveReps(data) {
           }
             //newContent += '<h2 class="featurette-heading"> <b> Representative Name </b>' + '</h2>';
 
-            // Unwrap tags
+            // Unwrap tags using dictionary from API call to GET alltags
             var tags = data.Results[i].tags;
             var parsedTags = "";
             for (tag of tags)
