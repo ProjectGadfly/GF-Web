@@ -123,7 +123,6 @@ $('#address-form').on('submit', function(e) {
            //$('#content').html(retrieveReps(testJSON)).hide().fadeIn(400); //testing JSON parse
             $('#content').append('<div id="container">Please try again soon.</div>');
         }
-    }
     });
     
     replaceTemplate(submit);
