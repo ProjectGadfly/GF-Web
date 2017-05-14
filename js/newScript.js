@@ -27,13 +27,13 @@ function retrieve(data) {
 function editData(data) {
 	$('#content').html(retrieve(data)).hide().fadeIn(400);
 }
-
+/*
 // AJAX set up with custom header for api key
 $.ajaxSetup({
     beforeSend: function(xhr) {
         xhr.setRequestHeader("APIKey", "v1key");
     }
-});
+});*/
 
 $('#writescriptform').on('submit',function(e) {
 	console.log("Begin submit funciont");
