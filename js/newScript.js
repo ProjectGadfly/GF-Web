@@ -34,23 +34,22 @@ $('#writescriptform').on('submit',function(e) {
 //	console.log("2");
 	var link = 'http://gadfly.mobi/services/v1/script';
 
-	$ajax({
+	$.ajax({
 		type:"POST",
+		url: link,
+		//headers: {"APIKey":"v1key"},
 		beforeSend: function(request) {
 			request.setRequestHeader("APIKey","v1key");
 			$('#content').append('<div id = "load">Loading</div>');
 		},
-		url: link,
-		//headers: {"APIKey":"v1key"},
-		
 		complete: function(data) {
 			$('#load').remove();
-		}
+		},
 		success: function(data) {
 			console.log(data);
 			console.log(String(data));
 			$('#content').html(retrieveReps(data).hide().fadeIn(400));
-		}
+		},
 		error: function() {
 			$('#content').append('<div id="container">Please try again.</div>');
 		}
