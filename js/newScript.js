@@ -12,7 +12,7 @@ function retrieve(data) {
 	var newContent = '';
 
 	console.log(data);
-	//for (var i = 0; i <data.length;i++) {
+	for (var i = 0; i <data.length;i++) {
 	newContent += '<h3 class="text-center lead margin display-4"> <strong>Script Title</strong></h3>';
 	newContent += '<iframe style="border:1px solid black;width:100%;display:block;height:400px">' + data.ticket +'</iframe>';   //script goes here!
 	newContent += '<h3 class="text-center head"> <strong> Script URL:</strong> <a href="http://gadfly.mobi/script/' + data.id + '">View Script</a></h3> //common audience link goes here!';
@@ -21,6 +21,7 @@ function retrieve(data) {
 	newContent += '<div align="center"> <div id="qrcode"></div>';
 	console.log(newContent);
 	return newContent;
+	}
 }
 
 function editData(data) {
@@ -55,10 +56,13 @@ $('#writescriptform').on('submit',function(e) {
 	});
 	replaceTemplate(submit);
 	console.log("3");
-});{
+//});
+
+{
 	if (submit ==true) {
 		$('div.front-page').remove();
 		$('div.hidden').removeClass('hidden');
 	}
 
 }
+});
