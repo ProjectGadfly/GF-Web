@@ -28,11 +28,20 @@ function editData(data) {
 	$('#content').html(retrieve(data)).hide().fadeIn(400);
 }
 
+// AJAX set up with custom header for api key
+$.ajaxSetup({
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader("APIKey", "v1key");
+    }
+});
+
 $('#writescriptform').on('submit',function(e) {
 //	console.log("1");
 	submit = true;
 //	console.log("2");
 	var link = 'http://gadfly.mobi/services/v1/script';
+
+	console.log(data);
 
 	$.ajax({
 		type:"POST",
