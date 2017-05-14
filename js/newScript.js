@@ -36,12 +36,13 @@ $('#writescriptform').on('submit',function(e) {
 
 	$ajax({
 		type:"POST",
-		url: link,
-		//headers: {"APIKey":"v1key"},
 		beforeSend: function(request) {
 			request.setRequestHeader("APIKey","v1key");
 			$('#content').append('<div id = "load">Loading</div>');
-		}
+		},
+		url: link,
+		//headers: {"APIKey":"v1key"},
+		
 		complete: function(data) {
 			$('#load').remove();
 		}
