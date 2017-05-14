@@ -34,7 +34,6 @@ $.ajaxSetup({
         xhr.setRequestHeader("APIKey", "v1key");
     }
 });*/
-
 $('#writescriptform').on('submit',function(e) {
 	console.log("Begin submit funciont");
 //	console.log("1");
