@@ -56,6 +56,9 @@
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 
+
+
+
 <body>
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -127,53 +130,63 @@
 	 </div> <!--container-->
 	 </div> <!--entirecontent-->
     	</section>
-     
+     </div> 
+    </div> <!--//for newScriptPage-->
 
 
+
+    <!-- Hidden part -->
+    <div class="hidden">
+      <div id="successPage">     
+       <div class="alert alert-success" role="alert">
+           <div class="container">
+                <h2 class="alert-heading padding-top"> <strong>Well done!</strong></h2>
+                <h4 class="lead display-4">You just submitted your script!</h4>
+            </div>
+       </div>
+       <div class="container">
+          //   <h3 class="text-center lead margin display-4"> <strong>Script Title</strong></h3>
+            // <iframe style="border:1px solid black;width:100%;display:block;height:400px"></iframe>   script goes here!
+      // <h3 class="text-center head"> <strong> Script URL:</strong> <a href="http://google.com">View Script</a></h3> //common audience link goes here!
+            // <h3 class="head text-center"> <b> QR code:</b></h3>
+      // <button id="delete_button">Delete Script</button>
+            // <div align="center">
+      //   <div id="qrcode"></div>
+       </div>
+              <div style="width:50vw;margin:0 auto" align="center">
+               <p class="text-center lead margin"> Share this script on social media!</p>
+                  <div class="btn-group btn-group-lg" role="group">
+                      <a class="btn btn-social-icon btn-facebook" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-facebook']);"><span class="fa fa-facebook"></span></a>
+                     <a class="btn btn-social-icon btn-twitter" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-twitter']);"><span class="fa fa-twitter"></span></a>
+                     <a class="btn btn-social-icon btn-google" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-google']);"><span class="fa fa-google"></span></a>
+                 </div>
+        </div>
+     </div>
+      </div> <!--// for id=successPage-->
+    </div> <!--//for class= hidden-->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
      <footer>
         <p>&copy; Project Gadfly 2017</p>
       </footer>
 
-    </div> 
-    </div> <!--//for newScriptPage-->
+    <script src="js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/newScript.js"></script>
     
-    <div class="hidden">
-	    <div id="successPage"> 		 
-   		 <div class="alert alert-success" role="alert">
-   		     <div class="container">
-    		        <h2 class="alert-heading padding-top"> <strong>Well done!</strong></h2>
-    		        <h4 class="lead display-4">You just submitted your script!</h4>
-    		    </div>
-  		 </div>
-  		 <div class="container">
-       		//	 <h3 class="text-center lead margin display-4"> <strong>Script Title</strong></h3>
-       			// <iframe style="border:1px solid black;width:100%;display:block;height:400px"></iframe>   script goes here!
-			// <h3 class="text-center head"> <strong> Script URL:</strong> <a href="http://google.com">View Script</a></h3> //common audience link goes here!
-       			// <h3 class="head text-center"> <b> QR code:</b></h3>
-			// <button id="delete_button">Delete Script</button>
-       			// <div align="center">
-			//	 <div id="qrcode"></div>
-			 </div>
-      			  <div style="width:50vw;margin:0 auto" align="center">
-         		   <p class="text-center lead margin"> Share this script on social media!</p>
-          			  <div class="btn-group btn-group-lg" role="group">
-              			  <a class="btn btn-social-icon btn-facebook" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-facebook']);"><span class="fa fa-facebook"></span></a>
-               			 <a class="btn btn-social-icon btn-twitter" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-twitter']);"><span class="fa fa-twitter"></span></a>
-               			 <a class="btn btn-social-icon btn-google" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-google']);"><span class="fa fa-google"></span></a>
-           			 </div>
-			  </div>
-		 </div>
-	    </div> <!--// for id=successPage-->
-    </div> <!--//for class= hidden-->
+
     
     
     
-    <!-- /container -->        
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-	<script src="js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="js/newScript.js"></script>
-	<script src="js/qrcode.js"> </script>
+     
+     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+     <script src="js/vendor/bootstrap.min.js"></script>
+	   <script src="js/vendor/jquery-1.11.2.min.js"></script>
+     <script src="js/newScript.js"></script>
+	   <script src="js/qrcode.js"> </script>
    </body>
 
 
