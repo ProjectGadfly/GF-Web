@@ -31,7 +31,7 @@ $('#writescriptform').on('submit',function(e) {
 //	console.log("1");
 	submit = true;
 //	console.log("2");
-	var link = 'http://gadfly.mobi/services/v1/script;
+	var link = 'http://gadfly.mobi/services/v1/script';
 
 	$ajax({
 		type:"POST",
