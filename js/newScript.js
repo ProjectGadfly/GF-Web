@@ -36,6 +36,7 @@ $.ajaxSetup({
 });
 
 $('#writescriptform').on('submit',function(e) {
+	console.log("Begin submit funciont");
 //	console.log("1");
 	submit = true;
 //	console.log("2");
