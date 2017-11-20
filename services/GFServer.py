@@ -52,8 +52,11 @@ def fetchDistrict(ad):
     DReq = requests.get(URL)
     DInfo = DReq.text
     DData = json.loads(DInfo)
-    D = DData['offices'][0]['divisionId'].rsplit(':')[-1]
-    return D
+    if 'error' in DData:
+        return -1
+    else:
+        D = DData['offices'][0]['divisionId'].rsplit(':')[-1]
+        return D
 
 # end get geo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -272,7 +275,12 @@ def getRepresentatives():
         resp = Response(json.dumps(msg), status=404, mimetype='application/json')
         return resp
     print("address is ok")
+    print(LLData)
     district = fetchDistrict(address)
+    if district == -1:
+        msg['Status']='invalid address'
+        resp = Response(json.dumps(msg), status=404, mimetype='application/json')
+        return resp
     # Retreive representative data from helper function
     try:
         print("try fetch reps")
