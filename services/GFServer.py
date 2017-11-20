@@ -20,6 +20,7 @@ DBPasswd = "gadfly_pw"
 # Keys should be removed from GFServer.py
 GGkey=r"AIzaSyD9-4_5QUmogkjgvXdMGYVemsUEVVfy8tI"
 PPkey=r"2PvUNGIQHTaDhSCa3E5WD1klEX67ajkM5eLGkgkO"
+OOkey=r"1c8b6a93-163d-4d50-a6da-4699b316dd03"
 APIkey="v1key"
 
 
@@ -33,25 +34,25 @@ def addrToGeo(LLData):
         Returns:
         A dictionary
     """
+    print("Converting address")
     result = dict()
     result['LL'] = LLData['results'][0]['geometry']['location']
     for c in LLData['results'][0]['address_components']:
         if 'administrative_area_level_1' in c['types']:
             result['state'] = c['short_name']
             break
+    print("finished converting address")
     return result
 
-def fetchDistrict(ll):
+def fetchDistrict(ad):
     """ Purpose:
-        Fetches federal district based upon the latitute and longitude passed as a parameter
+        Fetches federal district based upon the address passed as a parameter
     """
-    lat = ll['lat']
-    lng = ll['lng']
-    URL = r"https://congress.api.sunlightfoundation.com/districts/locate?latitude=" + str(lat) + "&longitude=" + str(lng)
+    URL = r"https://www.googleapis.com/civicinfo/v2/representatives?key=" + GGkey + "&address=" + ad + "&levels=country&roles=legislatorLowerBody"
     DReq = requests.get(URL)
     DInfo = DReq.text
     DData = json.loads(DInfo)
-    D = DData['results'][0]['district']
+    D = DData['offices'][0]['divisionId'].rsplit(':')[-1]
     return D
 
 # end get geo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,6 +143,7 @@ def fetchFederal(state, district):
     """    Purpose:
         Returns the list of federal objects
     """
+    print("Fetching fed!")
     fed = []
     key = ""
     sURL = r"https://api.propublica.org/congress/v1/members/senate/" + state + r"/current.json"
@@ -169,6 +171,7 @@ def fetchFederal(state, district):
         hh=hhData['results'][0]
         hhObject=federal(hh)
         fed.append(hhObject.returnDict())
+    print("Fetched fed!")
     return fed
 
 def fetchStateRep(lat, lng):
@@ -176,7 +179,7 @@ def fetchStateRep(lat, lng):
     Returns the state representatives' data
     """
     URL = r"https://openstates.org/api/v1/legislators/geo/?lat=" + str(lat) + "&long=" + str(lng)
-    stateReq = requests.get(URL)
+    stateReq = requests.get(URL,headers = {"X-API-KEY":OOkey})
     stateInfo = stateReq.text
     stateData = json.loads(stateInfo)
     return stateData
@@ -185,11 +188,13 @@ def fetchState(LL):
     """Purpose:
         Fetch all state reps matching the latitude and longitude
     """
+    print("Fetching state!")
     ST = fetchStateRep(LL['lat'], LL['lng'])
     stData = []
     for st in ST:
         stObject = state(st)
         stData.append(stObject.returnDict())
+    print("Fetched state!")
     return stData
 
 #end fetch functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``
@@ -205,18 +210,20 @@ def fetchState(LL):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-def get_representatives_helper(LLData):
+def get_representatives_helper(LLData,district):
     """ Purpose:
         Retreive geocode location from address
         Retreive state and federal representatives from data providers
     """
+    print("Start convert address")
     dict_coord_state = addrToGeo(LLData)
     ll = dict_coord_state['LL']
-    district = fetchDistrict(ll)
     state = dict_coord_state['state']
     # retreive federal data
+    print("Start fetch fed")
     federals = fetchFederal(state, district)
     # retreive state data
+    print("Start fetch state")
     states = fetchState(ll)
     # Merge and return federal and state
     result_dict=dict()
@@ -245,7 +252,9 @@ def getRepresentatives():
         return Response('Error: Wrong API Key!', status=401)
     address = request.args['address']
     URL = r'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + GGkey
+    print("Getting google")
     LLData = json.loads(requests.get(URL).text)
+    print("Got google")
     msg=dict()
     if LLData['status'] != 'OK':
         msg['Status']='invalid address'
@@ -262,15 +271,20 @@ def getRepresentatives():
         msg['Status']='address too broad'
         resp = Response(json.dumps(msg), status=404, mimetype='application/json')
         return resp
+    print("address is ok")
+    district = fetchDistrict(address)
     # Retreive representative data from helper function
     try:
-        all_reps = get_representatives_helper(LLData)
+        print("try fetch reps")
+        all_reps = get_representatives_helper(LLData,district)
         js = json.dumps(all_reps)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
     except:
+        print("having troubles")
         msg['Status']='Failed to get reps'
         resp = Response(json.dumps(msg), status=404, mimetype='application/json')
+        return resp
 
 
 
