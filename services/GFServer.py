@@ -55,8 +55,12 @@ def fetchDistrict(ad):
     if 'error' in DData:
         return -1
     else:
-        D = DData['offices'][0]['divisionId'].rsplit(':')[-1]
-        return D
+        if 'offices' in DData:
+            for office in DData['offices']:
+                if 'legislatorLowerBody' in office['roles']:
+                    D = office['divisionId'].rsplit(':')[-1]
+                    return D
+        return -1
 
 # end get geo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -276,7 +280,7 @@ def getRepresentatives():
         return resp
     print("address is ok")
     print(LLData)
-    district = fetchDistrict(address)
+    district = fetchDistrict(LLData['results'][0]['formatted_address'].replace(' ','+'))
     if district == -1:
         msg['Status']='invalid address'
         resp = Response(json.dumps(msg), status=404, mimetype='application/json')
