@@ -52,6 +52,8 @@ def fetchDistrict(ad):
     DReq = requests.get(URL)
     DInfo = DReq.text
     DData = json.loads(DInfo)
+    print(ad)
+    print(DData)
     if 'error' in DData:
         return -1
     else:
@@ -279,7 +281,7 @@ def getRepresentatives():
         resp = Response(json.dumps(msg), status=404, mimetype='application/json')
         return resp
     print("address is ok")
-    print(LLData)
+    #print(LLData)
     district = fetchDistrict(LLData['results'][0]['formatted_address'].replace(' ','+'))
     if district == -1:
         msg['Status']='invalid address'
