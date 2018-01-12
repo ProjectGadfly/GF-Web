@@ -443,7 +443,9 @@ def deleteScript():
     result=cursor.fetchone()[0]
     print("resultttttt"+str(result))
     if result==0:
-        resp = Response("{'Status':'No such ticket'}", status=404, mimetype='application/json')
+        result=dict()
+        result['Status']='No such ticket'
+        resp = Response(json.dumps(result), status=404, mimetype='application/json')
         return resp
     # try to delete call script based on ticket number parameter
     try:
@@ -459,14 +461,18 @@ def deleteScript():
         query = "DELETE FROM call_scripts WHERE ticket = %s"
         print(query)
         cursor.execute(query,(ticket,))
-        success_resp = Response("{'Status':'OK'}", status=200, mimetype='application/json')
+        result=dict()
+        result['Status']='OK'
+        resp = Response(json.dumps(result), status=200, mimetype='application/json')
         cnx.commit()
         cnx.close()
-        return success_resp
+        return resp
     except:
-        failure_resp = Response("{'Status':'Deletion Failed'}", status=404, mimetype='application/json')
+        result=dict()
+        result['Status']='Failed to delete'
+        resp = Response(json.dumps(result), status=404, mimetype='application/json')
         cnx.close()
-        return failure_resp
+        return resp
 
 
 # end delete script~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -540,10 +546,17 @@ def getID():
         print("finish getting id")
         row = cursor.fetchone()
         id = row[0]
-        resp = Response("{'Status':'OK','id':"+str(id)+"}", status=200, mimetype='application/json')
+        result = dict()
+        result['Status']='OK'
+        result['id']=str(id)
+        js=json.dumps(result)
+        resp = Response(js, status=200, mimetype='application/json')
         return resp
     except:
-        resp = Response("{'Status':'Failed to get id'}", status=404, mimetype='application/json')
+        result = dict()
+        result['Status']='Failed to get id'
+        js=json.dumps(result)
+        resp = Response(js, status=404, mimetype='application/json')
         return resp
 
 
@@ -583,7 +596,10 @@ def getScript():
         cnx.close()
         return resp
     except:
-        resp = Response("{'Status':'Failed to get script'}", status=404, mimetype='application/json')
+        result = dict()
+        result['Status']='Failed to get script'
+        js=json.dumps(result)
+        resp = Response(js, status=404, mimetype='application/json')
         return resp
 
 
